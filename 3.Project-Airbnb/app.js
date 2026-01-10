@@ -16,7 +16,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.urlencoded());
+app.use(express.static("public"));
+
+app.use(express.urlencoded({ extended: false }));
 app.use(userRouter);
 app.use("/host", hostRouter);
 

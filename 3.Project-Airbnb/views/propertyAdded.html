@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/output.css">
     <title>Property added successfully</title>
 </head>
-<body>
-    <header>
-        <h1>Property registered successfully!</h1>
+<body class="flex min-h-screen items-center justify-center bg-linear-to-br from-gray-50 via-white to-gray-100 text-gray-800">
+
+    <header class="mx-auto max-w-lg rounded-2xl bg-white p-10 text-center shadow-2xl ring-1 ring-gray-200">
+        <h1 class="mb-6 text-3xl font-bold tracking-tight text-green-600 sm:text-4xl">
+            Property registered successfully!
+        </h1>
+
+        <main>
+            <a
+                href="/"
+                class="inline-block rounded-full bg-linear-to-r from-red-500 to-pink-500 px-8 py-3 text-lg font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-300"
+            >
+                Go to Home Page
+            </a>
+        </main>
     </header>
-    <main>
-        <a href="/">Go to Home Page</a>
-    </main>
+
 </body>
 </html>
