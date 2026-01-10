@@ -1,5 +1,6 @@
 // External module
 const express = require('express');
+const bodyParser = require('body-parser');
 
 // Create express app
 const app = express();
@@ -19,8 +20,11 @@ app.get('/submit', (req, res) => {
   `);
 });
 
+app.use(bodyParser.urlencoded());
+
 app.post('/submit', (req, res) => {
-    res.send("Form submitted successfully");
+    console.log(req.body);
+    res.send(`Name is : ${req.body.username}`);
 });
 
 // GET request → Contact page
