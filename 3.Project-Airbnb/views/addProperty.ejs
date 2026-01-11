@@ -1,27 +1,45 @@
 <%- include('partials/head') %>
-</head>
+    </head>
 
-<body class="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100 text-gray-800">
+    <body class="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100 text-gray-800">
 
-    <!-- HEADER -->
-    <%- include('partials/nav') %>
+        <!-- HEADER -->
+        <%- include('partials/nav') %>
 
-        <section class="mx-auto max-w-4xl px-6 py-10 text-center">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Register your home here
-            </h1>
-        </section>
+            <section class="mx-auto max-w-4xl px-6 py-10 text-center">
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Register your Property here
+                </h1>
+            </section>
 
-        <main class="mx-auto max-w-md px-6">
-            <form action="/host/add-home" method="POST" class="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-200">
-                <input type="text" name="houseName" placeholder="Enter your house name"
-                    class="mb-6 w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder-gray-400 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200" />
+            <main class="mx-auto max-w-md px-6">
+                <form 
+                    action="/host/add-home" 
+                    method="POST" 
+                    enctype="multipart/form-data"
+                    class="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-200">
+                    <input type="text" required name="houseName" placeholder="Enter Your Property Name"
+                        class="mb-6 w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder-gray-400 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200" />
 
-                <input type="submit"
-                    class="w-full cursor-pointer rounded-full bg-linear-to-r from-red-500 to-pink-500 px-6 py-3 text-lg font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-300" />
-            </form>
-        </main>
+                    <input type="text" required name="pricePerNight" placeholder="Price Per Night"
+                        class="mb-6 w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder-gray-400 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200" />
 
-</body>
+                    <input type="text" required name="propertyLocation" placeholder="Enter Property Location"
+                        class="mb-6 w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder-gray-400 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200" />
 
-</html>
+                    <div class="mb-6">
+                        <label for="photo" class="mb-2 block text-sm font-medium text-gray-700">
+                            Upload Property Photo
+                        </label>
+                        <input type="file" id="photo" name="propertyPhoto" accept="image/*"
+                            class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:rounded-full file:border-0 file:bg-linear-to-r file:from-red-500 file:to-pink-500 file:px-5 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-200" />
+                    </div>
+
+                    <input type="submit"
+                        class="w-full cursor-pointer rounded-full bg-linear-to-r from-red-500 to-pink-500 px-6 py-3 text-lg font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-300" />
+                </form>
+            </main>
+
+    </body>
+
+    </html>
