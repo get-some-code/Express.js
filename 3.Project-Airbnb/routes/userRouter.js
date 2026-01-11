@@ -6,10 +6,11 @@ const express = require('express');
 const userRouter = express.Router();
 
 // Local Module
-const rootDir = require('../utils/path');
+const { registeredProperty } = require('./hostRouter');
 
 userRouter.get("/", (req, res) => {
-    res.sendFile(path.join(rootDir, "views", "home.html"))
+    console.log(registeredProperty);
+    res.render('home', { registeredProperty: registeredProperty, pageTitle: 'Airbnb | Holiday rentals, cabins, beach house & more' });
 });
 
 // __dirname => refers to the current directory

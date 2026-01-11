@@ -9,11 +9,16 @@ const hostRouter = express.Router();
 const rootDir = require('../utils/path');
 
 hostRouter.get("/add-home", (req, res) => {
-    res.sendFile(path.join(rootDir, "views", "addProperty.html"))
+    res.render('addProperty', { pageTitle: 'Register your property' });
 });
+
+const registeredProperty = [];
 
 hostRouter.post("/add-home", (req, res) => {
-    res.sendFile(path.join(rootDir, "views", "propertyAdded.html"))
+    console.log('Property registered successfully for: ', req.body.houseName);
+    res.render('propertyAdded', { pageTitle: 'Property added successfully' });
+    registeredProperty.push({houseName: req.body.houseName});
 });
 
-module.exports = hostRouter;
+exports.hostRouter = hostRouter;
+exports.registeredProperty = registeredProperty;

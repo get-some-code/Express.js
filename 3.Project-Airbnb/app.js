@@ -6,10 +6,11 @@ const express = require('express');
 
 // Local Module
 const userRouter = require('./routes/userRouter');
-const hostRouter = require('./routes/hostRouter');
-const rootDir = require('./utils/path')
+const { hostRouter } = require('./routes/hostRouter');
 
 const app = express();
+
+app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
     console.log(req.url, req.method);
@@ -23,7 +24,7 @@ app.use(userRouter);
 app.use("/host", hostRouter);
 
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(rootDir, "views", "404.html"))
+    res.status(404).render('404', {pageTitle: '404 Page Not Found'});
 })
 
 // Start server
