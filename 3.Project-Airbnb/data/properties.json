@@ -1,0 +1,20 @@
+[
+    {
+        "propertyName": "Godrej",
+        "pricePerNight": "1200",
+        "propertyLocation": "Bangalore",
+        "propertyPhoto": "1768638800246.jpg"
+    },
+    {
+        "propertyName": "Amantran",
+        "pricePerNight": "1200",
+        "propertyLocation": "Bangalore",
+        "propertyPhoto": "1768639184364.jpg"
+    },
+    {
+        "propertyName": "Antara",
+        "pricePerNight": "1800",
+        "propertyLocation": "Kolkata",
+        "propertyPhoto": "1768639230849.jpg"
+    }
+]

@@ -6,15 +6,8 @@ const express = require("express");
 const userRouter = express.Router();
 
 // Local Module (✅ import from model, NOT router)
-const { registeredProperty } = require("../models/property");
+const { getHomePage } = require("../controllers/home");
 
-userRouter.get("/", (req, res) => {
-    console.log(registeredProperty);
-
-    res.render("home", {
-        registeredProperty: registeredProperty,
-        pageTitle: "Airbnb | Holiday rentals, cabins, beach house & more"
-    });
-});
+userRouter.get("/", getHomePage );
 
 module.exports = userRouter;

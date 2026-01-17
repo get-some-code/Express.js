@@ -7,6 +7,7 @@ const express = require('express');
 // Local Module
 const userRouter = require('./routes/userRouter');
 const { hostRouter } = require('./routes/hostRouter');
+const { error } = require('./controllers/Error');
 
 const app = express();
 
@@ -24,9 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(userRouter);
 app.use("/host", hostRouter);
 
-app.use((req, res) => {
-    res.status(404).render('404', {pageTitle: '404 Page Not Found'});
-})
+app.use(error);
 
 // Start server
 const PORT = 3001;
