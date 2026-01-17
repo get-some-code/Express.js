@@ -1,11 +1,11 @@
-<%- include('partials/head') %>
+<%- include('../partials/head') %>
   </head>
 
   <body
     class="min-h-screen bg-linear-to-r from-gray-50 via-white to-gray-100 text-gray-800 antialiased flex flex-col items-center">
 
     <!-- HEADER -->
-    <%- include('partials/nav') %>
+    <%- include('../partials/nav') %>
 
       <!-- MAIN -->
       <main class="flex-1 w-full flex flex-col items-center text-center mt-15 mb-40">
@@ -44,6 +44,18 @@
                 <div
                   class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent">
                 </div>
+
+                <!-- Favorite Button - Top Right -->
+                <button onclick="toggleFavorite(this, '<%= property._id %>')"
+                  class="absolute top-3 right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm shadow-md transition-all duration-300 hover:bg-white hover:scale-110 active:scale-95"
+                  aria-label="Add to favorites">
+                  <!-- Heart Icon -->
+                  <svg class="heart-icon h-5 w-5 text-gray-600 transition-colors duration-300" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
               </div>
 
               <!-- Card Body -->
@@ -69,9 +81,22 @@
                 <div class="my-2 h-px w-full bg-gray-100"></div>
 
                 <!-- Meta -->
-                <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
+                <p class="mb-4 text-xs font-medium uppercase tracking-wide text-gray-400">
                   Hosted on Airbnb
                 </p>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3">
+                  <a href="/booking/<%= property._id %>"
+                    class="flex-1 rounded-xl bg-linear-to-r from-red-500 to-pink-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 hover:from-red-600 hover:to-pink-600 text-center inline-block">
+                    Book Now
+                  </a>
+                  
+                  <a href="/property/<%= property._id %>"
+                    class="flex-1 rounded-xl border-2 border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 hover:scale-105 active:scale-95 text-center inline-block">
+                    Details
+                  </a>
+                </div>
               </div>
             </li>
             <% }) %>
@@ -79,42 +104,11 @@
 
       </main>
 
+      <!-- Styling and JavaScript -->
+      <%- include('../partials/homeControls') %>
+
       <!-- FOOTER -->
-      <footer class="w-full bg-white border-t border-gray-200">
-        <div class="mx-auto max-w-5xl px-6 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm text-gray-600">
-
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-3">Airbnb</h3>
-            <p class="leading-relaxed">
-              Making travel more human by connecting people with places that matter.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-3">Explore</h3>
-            <ul class="space-y-2">
-              <li><a href="#" class="hover:text-gray-900 transition">Homes</a></li>
-              <li><a href="#" class="hover:text-gray-900 transition">Experiences</a></li>
-              <li><a href="#" class="hover:text-gray-900 transition">Hosting</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-3">Support</h3>
-            <ul class="space-y-2">
-              <li><a href="#" class="hover:text-gray-900 transition">Help Center</a></li>
-              <li><a href="#" class="hover:text-gray-900 transition">Trust & Safety</a></li>
-              <li><a href="#" class="hover:text-gray-900 transition">Terms & Privacy</a></li>
-            </ul>
-          </div>
-
-        </div>
-
-        <div class="border-t border-gray-100 py-4 text-center text-xs text-gray-500">
-          © 2026 Airbnb, Inc. All rights reserved.
-        </div>
-      </footer>
+      <%- include('../partials/footer') %>
 
   </body>
-
   </html>

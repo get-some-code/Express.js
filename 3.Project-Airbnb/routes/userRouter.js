@@ -5,9 +5,10 @@ const path = require("path");
 const express = require("express");
 const userRouter = express.Router();
 
-// Local Module (✅ import from model, NOT router)
-const { getHomePage } = require("../controllers/home");
+// Local Module (import from model, NOT router)
+const { getHomePage, getBookingPage } = require("../controllers/home");
 
 userRouter.get("/", getHomePage );
+userRouter.get(`/booking/:id`, getBookingPage);
 
 module.exports = userRouter;

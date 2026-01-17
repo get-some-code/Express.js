@@ -1,0 +1,59 @@
+<style>
+          /* Favorite button states */
+          .heart-icon.favorited {
+            fill: currentColor;
+            color: #ef4444;
+          }
+
+          /* Smooth transitions */
+          button {
+            -webkit-tap-highlight-color: transparent;
+          }
+
+          /* Animation for favorite */
+          @keyframes heartBeat {
+
+            0%,
+            100% {
+              transform: scale(1);
+            }
+
+            25% {
+              transform: scale(1.2);
+            }
+
+            50% {
+              transform: scale(1.1);
+            }
+          }
+
+          .heart-icon.animate-beat {
+            animation: heartBeat 0.5s ease-in-out;
+          }
+        </style>
+
+        <script>
+          // Toggle favorite
+          function toggleFavorite(button, propertyId) {
+            const heartIcon = button.querySelector('.heart-icon');
+
+            // Add animation
+            heartIcon.classList.add('animate-beat');
+            setTimeout(() => heartIcon.classList.remove('animate-beat'), 500);
+
+            // Toggle favorited state
+            heartIcon.classList.toggle('favorited');
+            const isFavorited = heartIcon.classList.contains('favorited');
+            console.log(`Property ${propertyId} ${isFavorited ? 'added to' : 'removed from'} favorites`);
+          }
+
+          // Book property
+          function bookProperty(propertyId) {
+            console.log(`Booking property ${propertyId}`);
+          }
+
+          // View details
+          function viewDetails(propertyId) {
+            console.log(`Viewing details for property ${propertyId}`);
+          }
+        </script>

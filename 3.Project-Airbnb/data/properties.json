@@ -1,20 +1,23 @@
 [
     {
-        "propertyName": "Godrej",
-        "pricePerNight": "1200",
-        "propertyLocation": "Bangalore",
-        "propertyPhoto": "1768638800246.jpg"
-    },
-    {
         "propertyName": "Amantran",
-        "pricePerNight": "1200",
+        "pricePerNight": "1800",
         "propertyLocation": "Bangalore",
-        "propertyPhoto": "1768639184364.jpg"
+        "propertyPhoto": "1768659478804.jpg",
+        "_id": "1768659478892-0.cop3qht2t4s"
     },
     {
         "propertyName": "Antara",
-        "pricePerNight": "1800",
+        "pricePerNight": "2000",
+        "propertyLocation": "Bangalore",
+        "propertyPhoto": "1768671990617.jpg",
+        "_id": "1768671991364-0.vjobiawjx08"
+    },
+    {
+        "propertyName": "Emami Aastha",
+        "pricePerNight": "3000",
         "propertyLocation": "Kolkata",
-        "propertyPhoto": "1768639230849.jpg"
+        "propertyPhoto": "1768674487568.jpg",
+        "_id": "1768674488410-0.9qtf3c7p7rt"
     }
 ]
