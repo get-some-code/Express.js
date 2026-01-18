@@ -49,3 +49,18 @@ exports.getBookingPage = (req, res) => {
         });
     });
 }
+
+exports.getPropertyDetailsPage = (req, res) => {
+    const propertyId = req.params.id;
+
+    Property.findById(propertyId, (property) => {
+        if (!property) {
+            return res.redirect('/');
+        }
+
+        res.render("store/propertyDetails", {
+            registeredProperty: [property],
+            pageTitle: "Check Property Details"
+        })
+    })
+}
