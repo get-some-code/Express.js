@@ -64,3 +64,42 @@ exports.getPropertyDetailsPage = (req, res) => {
         })
     })
 }
+
+exports.getHostPanelPage = (req, res) => {
+    Property.fetchProperty((registeredProperty) => {
+        res.render("admin/hostPanel", {
+            registeredProperty: registeredProperty,
+            pageTitle: "Host Panel"
+        })
+    })
+}
+
+// Edit property
+exports.postEditHome = (req, res) => {
+    const propertyId = req.params.id;
+    const { propertyName, propertyLocation, pricePerNight } = req.body;
+    
+    // If new photo uploaded, use it; otherwise keep the old one
+    const propertyPhoto = req.file ? req.file.filename : req.body.oldPhoto;
+    
+    const updatedProperty = {
+        _id: propertyId,
+        propertyName,
+        propertyLocation,
+        pricePerNight,
+        propertyPhoto
+    };
+    
+    Property.updateById(propertyId, updatedProperty, () => {
+        res.redirect('/host/host-property-list');
+    });
+};
+
+// Delete property
+exports.postDeleteHome = (req, res) => {
+    const propertyId = req.params.id;
+    
+    Property.deleteById(propertyId, () => {
+        res.redirect('/host/host-property-list');
+    });
+};
