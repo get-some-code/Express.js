@@ -1,0 +1,147 @@
+<style>
+  /* ================================
+     HEART STYLING
+  =================================== */
+
+  .heart-icon {
+    transition: transform 0.25s ease, fill 0.25s ease, stroke 0.25s ease;
+  }
+
+  .heart-icon.favorited {
+    fill: #ef4444;
+    stroke: #ef4444;
+  }
+
+  .heart-icon:not(.favorited) {
+    fill: none;
+    stroke: currentColor;
+  }
+
+  /* Pop animation */
+  @keyframes heartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+  }
+
+  .heart-pop {
+    animation: heartPop 0.35s ease;
+  }
+
+  /* ================================
+     NOTIFICATIONS
+  =================================== */
+
+  @keyframes slideInRight {
+    from { transform: translateX(120%); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to   { transform: translateX(120%); opacity: 0; }
+  }
+
+  .notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    padding: 16px 24px;
+    border-radius: 14px;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    animation: slideInRight 0.3s ease forwards;
+  }
+</style>
+
+<script>
+  /* ======================================
+     TOGGLE FAVOURITE
+  ======================================= */
+
+  async function toggleFavorite(button, propertyId) {
+    const heartIcon = button.querySelector('.heart-icon');
+    const isFavorited = heartIcon.classList.contains('favorited');
+
+    // Animation
+    button.classList.add('heart-pop');
+    setTimeout(() => button.classList.remove('heart-pop'), 350);
+
+    try {
+      const url = isFavorited
+        ? `/favourites/remove/${propertyId}`
+        : `/favourites/add/${propertyId}`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        return showNotification('Action failed', 'error');
+      }
+
+      // Update UI
+      heartIcon.classList.toggle('favorited', !isFavorited);
+
+      showNotification(
+        isFavorited
+          ? 'Removed from favourites'
+          : 'Added to favourites ❤️',
+        isFavorited ? 'info' : 'success'
+      );
+
+    } catch (error) {
+      console.error('Favourite toggle error:', error);
+      showNotification('Something went wrong', 'error');
+    }
+  }
+
+  /* ======================================
+     NOTIFICATION SYSTEM
+  ======================================= */
+
+  function showNotification(message, type) {
+
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+
+    const gradients = {
+      success: 'linear-gradient(to right, #10b981, #059669)',
+      error:   'linear-gradient(to right, #ef4444, #dc2626)',
+      info:    'linear-gradient(to right, #3b82f6, #2563eb)'
+    };
+
+    notification.style.background = gradients[type] || gradients.info;
+
+    notification.innerHTML = `
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        ${
+          type === 'success'
+            ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />'
+            : type === 'error'
+            ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />'
+            : '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" />'
+        }
+      </svg>
+      <span>${message}</span>
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.style.animation = 'slideOutRight 0.3s ease forwards';
+      setTimeout(() => notification.remove(), 300);
+    }, 2800);
+  }
+</script>

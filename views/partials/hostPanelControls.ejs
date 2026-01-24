@@ -1,0 +1,151 @@
+<style>
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Slide in animation */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  /* Modal animation */
+  @keyframes modalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-modal-in {
+    animation: modalIn 0.3s ease-out;
+  }
+
+  /* Stagger delays */
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+</style>
+
+<script>
+  // Open Add Modal
+  function openAddModal() {
+    document.getElementById("propertyModal").classList.remove("hidden");
+    document.getElementById("modalTitle").textContent = "Add New Property";
+    document.getElementById("propertyForm").action = "/host/add-home";
+    document.getElementById("propertyForm").reset();
+    document.getElementById("propertyId").value = "";
+    document.getElementById("currentPhoto").classList.add("hidden");
+  }
+
+  // Open Edit Modal
+  function openEditModal(property) {
+    document.getElementById("propertyModal").classList.remove("hidden");
+    document.getElementById("modalTitle").textContent = "Edit Property";
+    document.getElementById("propertyForm").action =
+      `/host/edit-home/${property._id}`;
+    document.getElementById("propertyId").value = property._id;
+
+    // Populate form fields
+    document.getElementById("propertyName").value = property.propertyName;
+    document.getElementById("propertyLocation").value =
+      property.propertyLocation;
+    document.getElementById("pricePerNight").value = property.pricePerNight;
+
+    // Show current photo
+    const currentPhotoDiv = document.getElementById("currentPhoto");
+    const currentPhotoImg = document.getElementById("currentPhotoImg");
+    currentPhotoImg.src = `/uploads/${property.propertyPhoto}`;
+    currentPhotoDiv.classList.remove("hidden");
+  }
+
+  // Close Modal
+  function closeModal() {
+    document.getElementById("propertyModal").classList.add("hidden");
+  }
+
+  // Open Delete Modal
+  function openDeleteModal(propertyId, propertyName) {
+    document.getElementById("deleteModal").classList.remove("hidden");
+    document.getElementById("deletePropertyName").textContent = propertyName;
+    document.getElementById("deleteForm").action =
+      `/host/delete-home/${propertyId}`;
+  }
+
+  // Close Delete Modal
+  function closeDeleteModal() {
+    document.getElementById("deleteModal").classList.add("hidden");
+  }
+
+  // Close modals on background click
+  document
+    .getElementById("propertyModal")
+    ?.addEventListener("click", function (e) {
+      if (e.target === this) closeModal();
+    });
+
+  document
+    .getElementById("deleteModal")
+    ?.addEventListener("click", function (e) {
+      if (e.target === this) closeDeleteModal();
+    });
+
+  // Close modals on Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeModal();
+      closeDeleteModal();
+    }
+  });
+
+  // Search functionality
+  document
+    .getElementById("searchInput")
+    ?.addEventListener("input", function (e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll("#propertyTableBody tr");
+
+      rows.forEach((row) => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? "" : "none";
+      });
+    });
+</script>
